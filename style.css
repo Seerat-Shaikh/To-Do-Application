@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #18181c;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-top: -15rem;
+    margin-left: 29rem;
+    letter-spacing: .7rem;
+   
+}
+
+.sun-icon{
+  margin-left: 60rem;
+  margin-top: -15rem;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+
+#container{
+    background-color: hsl(234, 23%, 25%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+    border-radius: 4px;
+    height: 60px;
+    margin-top: 1rem;
+    box-shadow: 0 0 10px 0 #0e0e16a3;
+    width: 35%;
+  }
+
+
+#container #task-input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  height: 100%;
+  font-size: 17px;
+  color: #9ea2bf;
+  
+  caret-color: hsl(220, 98%, 61%);
+
+  font-family: "Josefin Sans", sans-serif;
+  
+}
+
+
+#container .task-input::placeholder {
+  color: #898fd8;
+  font-size: 17px;
+  
+}
+
+.content {
+  background-color:  hsl(234, 23%, 25%);
+  
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 #0e0e16a3;
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+ 
+  padding: 0 15px;
+  
+  width: 35%;
+  margin-top: -1rem;
+ 
+  height: 55px;
+  font-size: .8rem;
+  color: white;
+}
+
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  flex-grow:.1;
+  color: #d1cfcd58;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  color: #d1cfcd58;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+
+
+.active {
+  color: hsl(220, 98%, 61%);
+  font-family: "Josefin Sans", sans-serif;
+}
+
+
+.items-no {
+  color:#d1cfcd58;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+
+
+.plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #777990;
+  border-radius: 50%;
+}
+
+
+
+.fas.fa-plus-circle:before {
+  content: "+"; 
+  color: #ffffffac;
+  font-size: .5em;
+  display: flex;
+}
+
+
+
+.clear:hover {
+  color:pink;
+}
+
+
+/*----Styling Javascript ----*/
+
+#task-container {
+  background-color: hsl(234, 23%, 25%);
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 #0e0e16a3;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid transparent;
+  display: flex; 
+  flex-direction: column;  
+  width: 31rem;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+
+.task {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+
+.task:last-child {
+  margin-bottom: 0;
+}
+
+
+.circle i {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  color: transparent;
+  border: 1px solid #777990;
+  margin-right: 10px;
+}
+
+
+.task li {
+  flex: 1;
+  color: #ffffff76;
+  font-size: 1.2rem;
+  list-style: none;
+  margin-left:2rem;
+  margin-bottom: .1rem;
+  display: flex;
+  align-items: center;
+}
+
+
+.task:not(:last-child)::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: #777990;
+  margin-top: 18px;
+  width: 31rem;
+  margin-left: -1rem;
+}
+
+
+#task-container.hidden {
+  display: none;
+}
+
+
+.task .checkTask {
+  color: #4589b1;
+  margin-right: 5px;
+  border: solid 1px #4589b1;
+  font-size: 1.5rem;
+  width:2rem;
+  margin-left: 23rem;
+  margin-top: -1.9rem;
+}
+
+
+.task .checkTask:hover {
+  background-color: #4589b1;
+  color: #fff;
+}
+
+
+
+.task .deleteTask {
+  color: rgb(135, 59, 59);
+  margin-right: 5px;
+  border: solid 1px rgb(135, 59, 59);
+  font-size: 1.5rem;
+  width:2rem;
+  margin-left: 26rem;
+  margin-top: -1.7rem;
+  
+}
+
+
+.task .deleteTask:hover {
+  background-color: rgb(135, 59, 59);
+  color: #fff;
+}
+
+
+.circle {
+  display: none;
+  margin-bottom: -1.3rem;
+  cursor: pointer;
+}
+
+
+.circle i {
+  width: 1.10em;
+  height: 1.2em;
+  border-radius: 50%;
+  border: 1px solid #777990;
+  vertical-align: middle;
+}
+
+
+.circle.completed i {
+  color: #4589b1;
+}
+
+
+.task.completed {
+  opacity: 0.6;
+}
+
+
+.task.completed .checkTask,
+.task.completed .deleteTask {
+  display: block;
+}
+
+
+#footer {
+  color:#7e7b7658;
+  margin-bottom: 1rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+}
+
+
+
+.task {
+  cursor: move;
+}
+
+
+.dark-mode {
+  background-color: white;
+}
