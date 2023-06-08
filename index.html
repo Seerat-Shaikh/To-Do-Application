@@ -4,70 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do Application</title>
+    <title>TO-DO</title>
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400&family=Roboto&display=swap" rel="stylesheet">
-
-    
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-    <header>
-        <img src="bkg img.jpg" alt="">
-        <div class="header-content">
-          <h1>TO DO</h1>
-          <!--<img src="sun.svg" alt="" class="sun-icon"-->
-          <!--<div id="sun-moon-toggle" class="fas fa-sun"></div>-->
-          <img id="sun-moon-toggle" class="sun-icon" src="sun.svg" alt="Sun">
+         <h2>TO DO</h2>
+         <button class="lightmode"><i class="fa fa-sun-o" aria-hidden="true"></i></button>
 
-        </div>
-    </header>
-    
-   
-   
-        <div id="container">
+         <div class="container">
+            <div id="add-task-container">
+              <input type="text" placeholder="Create a new todo..." id="input-task">
+              <button id="add-task"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+            </div>
+            <div id="task-container"></div>
+            <div class="remaining"></div>
+          </div>
 
-            <button id="add-task"><span class="plus-icon">
-                <i class="fas fa-plus-circle"></i>
-            </span></button>
-              
-            <input type="text" id="task-input" placeholder="Create a new todo...">
-            
-        </div>
-
-        <div class="circle" onclick="toggleTaskStatus(this)">
-            <i class="fas fa-circle"></i>
-        </div>
           
-       
-        <div id="task-container" class="hidden"></div>
-           
-        <div class="content">
-           <p><span class="items-no">Items Left</span></p>
-
-           <ul class="filter">
-            <li id="all" class="active">All</li>
-            <li id="active">Active</li>
-            <li id="completed">Completed</li>
-           </ul>
-
-           <button class="clear">Clear Completed</button>
-           
-        </div>
-        
-
-    <footer id="footer">
-        <p>Drag and drop to reorder list</p>
-    </footer>
-
-        <script src="index.js"></script>
-
-    </body>
-
+          <p class="drag">Drag and drop to reorder list</p>
+      
+    <script src="index.js"></script>
+</body>
 </html>
