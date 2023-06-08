@@ -1,305 +1,145 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-
-
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #18181c;
+  width: 100vw;
   height: 100vh;
+  background-image: url(bkg\ img.jpg), url(black.jpg);
+  background-repeat: no-repeat no-repeat;
+  background-size: cover, cover;
+  background-position: top, bottom;
+  background-size: 100% 45%, 100% 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
-}
-
-
-h1 {
-    color: white;
-    font-size: 2.5rem;
-    margin-top: -15rem;
-    margin-left: 29rem;
-    letter-spacing: .7rem;
-   
-}
-
-.sun-icon{
-  margin-left: 60rem;
-  margin-top: -15rem;
-}
-
-
-ul {
-  list-style-type: none;
-}
-
-
-#container{
-    background-color: hsl(234, 23%, 25%);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0 15px;
-    border-radius: 4px;
-    height: 60px;
-    margin-top: 1rem;
-    box-shadow: 0 0 10px 0 #0e0e16a3;
-    width: 35%;
-  }
-
-
-#container #task-input {
-  flex: 1;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  height: 100%;
-  font-size: 17px;
-  color: #9ea2bf;
-  
-  caret-color: hsl(220, 98%, 61%);
-
-  font-family: "Josefin Sans", sans-serif;
-  
-}
-
-
-#container .task-input::placeholder {
-  color: #898fd8;
-  font-size: 17px;
-  
-}
-
-.content {
-  background-color:  hsl(234, 23%, 25%);
-  
-  border-radius: 4px;
-  box-shadow: 0 0 10px 0 #0e0e16a3;
-  display: flex;
-
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
- 
-  padding: 0 15px;
-  
-  width: 35%;
-  margin-top: -1rem;
- 
-  height: 55px;
-  font-size: .8rem;
-  color: white;
-}
-
-
-.filter {
-  display: flex;
-  justify-content: space-between;
-  flex-grow:.1;
-  color: #d1cfcd58;
-  font-family: "Josefin Sans", sans-serif;
-}
-
-button {
-  border: none;
-  background-color: transparent;
-  color: #d1cfcd58;
-  font-family: "Josefin Sans", sans-serif;
-}
-
-
-
-.active {
-  color: hsl(220, 98%, 61%);
-  font-family: "Josefin Sans", sans-serif;
-}
-
-
-.items-no {
-  color:#d1cfcd58;
-  font-family: "Josefin Sans", sans-serif;
-}
-
-
-
-.plus-icon {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  width: 1.5em;
-  height: 1.5em;
-  border: 1px solid #777990;
-  border-radius: 50%;
-}
-
-
-
-.fas.fa-plus-circle:before {
-  content: "+"; 
-  color: #ffffffac;
-  font-size: .5em;
-  display: flex;
-}
-
-
-
-.clear:hover {
-  color:pink;
-}
-
-
-/*----Styling Javascript ----*/
-
-#task-container {
-  background-color: hsl(234, 23%, 25%);
-  border-radius: 4px;
-  box-shadow: 0 0 10px 0 #0e0e16a3;
-  padding: 15px;
-  margin: 20px 0;
-  border: 1px solid transparent;
-  display: flex; 
-  flex-direction: column;  
-  width: 31rem;
-  font-family: "Josefin Sans", sans-serif;
-}
-
-
-.task {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-}
-
-
-.task:last-child {
-  margin-bottom: 0;
-}
-
-
-.circle i {
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  color: transparent;
-  border: 1px solid #777990;
-  margin-right: 10px;
-}
-
-
-.task li {
-  flex: 1;
-  color: #ffffff76;
-  font-size: 1.2rem;
-  list-style: none;
-  margin-left:2rem;
-  margin-bottom: .1rem;
-  display: flex;
   align-items: center;
+  background-color: black;
 }
 
-
-.task:not(:last-child)::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background-color: #777990;
-  margin-top: 18px;
-  width: 31rem;
-  margin-left: -1rem;
-}
-
-
-#task-container.hidden {
-  display: none;
-}
-
-
-.task .checkTask {
-  color: #4589b1;
-  margin-right: 5px;
-  border: solid 1px #4589b1;
-  font-size: 1.5rem;
-  width:2rem;
-  margin-left: 23rem;
-  margin-top: -1.9rem;
-}
-
-
-.task .checkTask:hover {
-  background-color: #4589b1;
+h2 {
+  position: absolute;
+  top: 4rem;
+  left: 28rem;
   color: #fff;
+  font-size: 4rem;
+  letter-spacing: 5px;
+  font-family: "Franklin Gothic Medium";
+  font-weight: lighter;
 }
 
-
-
-.task .deleteTask {
-  color: rgb(135, 59, 59);
-  margin-right: 5px;
-  border: solid 1px rgb(135, 59, 59);
-  font-size: 1.5rem;
-  width:2rem;
-  margin-left: 26rem;
-  margin-top: -1.7rem;
-  
-}
-
-
-.task .deleteTask:hover {
-  background-color: rgb(135, 59, 59);
-  color: #fff;
-}
-
-
-.circle {
-  display: none;
-  margin-bottom: -1.3rem;
+.lightmode {
+  position: relative;
+  top: -15.6rem;
+  left: 29rem;
+  font-size: larger;
+  background-color: transparent;
+  border: none;
+  color: white;
   cursor: pointer;
 }
 
-
-.circle i {
-  width: 1.10em;
-  height: 1.2em;
-  border-radius: 50%;
-  border: 1px solid #777990;
-  vertical-align: middle;
+.container {
+  height: 50vh;
 }
 
-
-.circle.completed i {
-  color: #4589b1;
+#add-task-container {
+  position: relative;
+  width: 350px;
+  height: 1rem;
+  margin-bottom: -5rem;
+  padding: 22px 60px;
+  background-color: rgb(37, 35, 35);
 }
 
-
-.task.completed {
-  opacity: 0.6;
+#input-task {
+  width: 100%;
+  background-color: rgb(37, 35, 35);
+  border: none;
+  display: flex;
+  align-items: center;
+  color: azure;
+  font-size: 0.9rem;
 }
 
-
-.task.completed .checkTask,
-.task.completed .deleteTask {
-  display: block;
+#input-task:focus {
+  outline: none;
 }
 
-
-#footer {
-  color:#7e7b7658;
-  margin-bottom: 1rem;
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: 400;
+#add-task {
+  position: relative;
+  top: -1.3rem;
+  margin-left: -3rem;
+  font-size: larger;
+  background-color: transparent;
+  border: none;
+  color: #716e6e;
+  cursor: pointer;
 }
 
+.drag {
+  color: #898181;
+  position: absolute;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 0.9rem;
+  top: 45rem;
+}
 
+.task,
+.iteminfo {
+  position: relative;
+  top: 8rem;
+  width: 460px;
+  padding: 22px 60px;
+  background-color: rgb(37, 35, 35);
+  padding: 5px;
+  display: flex;
+  color: #a79d9d;
+}
 
 .task {
+  border-bottom: 1px solid #7d7575;
   cursor: move;
 }
 
-
-.dark-mode {
-  background-color: white;
+.iteminfo {
+  display: grid;
+  grid-template-columns: 150px 40px 45px 50px 200px;
 }
+
+.itembtns {
+  background-color: transparent;
+  border: none;
+  color: #a79d9d;
+  cursor: pointer;
+}
+
+.itembtns:last-child {
+  margin-left: 2rem;
+}
+
+.itembtns:focus {
+  color: rgb(75, 75, 195);
+}
+
+.task li {
+  list-style: none;
+  padding: 5px;
+  font-size: 1rem;
+  margin: 10px;
+}
+
+.deleteTask {
+  color: #716e6e;
+  border-color: transparent;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
