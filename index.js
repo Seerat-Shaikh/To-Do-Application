@@ -1,239 +1,218 @@
+// Assigning constants
+const addtaskcontainer = document.getElementById("add-task-container");
+const addTask = document.getElementById("add-task");
+const taskContainer = document.getElementById("task-container");
+const inputTask = document.getElementById("input-task");
+const remainingItems = document.getElementsByClassName("remaining")[0];
+const lightmode = document.getElementsByClassName("lightmode")[0];
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Assigning all constants
-    const addTask = document.getElementById('add-task');
-    const taskContainer = document.getElementById('task-container');
-    const inputTask = document.getElementById('task-input');
-    const completedFilter = document.getElementById('completed');
-    const clearCompletedButton = document.querySelector('.clear');
-    const itemsNo = document.querySelector('.items-no');
-    const dragAndDropFooter = document.getElementById('footer');
-    const sunMoonToggle = document.getElementById('sun-moon-toggle');
-    const body = document.querySelector('body');
-  
-    // Initializing empty list
-    let tasks = [];
-  
-    // Adding a task on clicking
-    addTask.addEventListener('click', () => {
-      let task = document.createElement('div');
-      task.classList.add('task');
-      updateItemsNo();
-  
-      // Adding circles in each task
-      let circle = document.createElement('div');
-      circle.classList.add('circle');
-      circle.onclick = toggleTaskStatus;
-      let circleIcon = document.createElement('i');
-      circleIcon.classList.add('fas', 'fa-circle');
-      circle.appendChild(circleIcon);
-      task.appendChild(circle);
-  
-      // Creating a list item
-      let li = document.createElement('li');
-      li.innerText = `${inputTask.value}`;
-      task.appendChild(li);
-  
-      // Activating check button
-      let checkButton = document.createElement('button');
-      checkButton.innerHTML = '<i class="fa-solid fa-check"></i>';
-      checkButton.classList.add('checkTask');
-      checkButton.style.display = 'none';
-      task.appendChild(checkButton);
-  
-      // Activating delete button
-      let deleteButton = document.createElement('button');
-      deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-      deleteButton.classList.add('deleteTask');
-      deleteButton.style.display = 'none';
-      task.appendChild(deleteButton);
-  
-      if (inputTask.value === '') {
-        alert('Please enter a task');
+/* DRAG & DROP */
+let draggedTask = null;
+
+// Function called when drag starts
+function dragStart(event) {
+  draggedTask = event.target;
+  event.dataTransfer.setData("text/plain", event.target.innerHTML);
+}
+
+// Function called when drag over
+function dragOver(event) {
+  event.preventDefault();
+}
+
+// Function called when drop happens
+function drop(event) {
+  event.preventDefault();
+  if (draggedTask) {
+    const dropTarget = event.target;
+    const taskContainer = document.getElementById("task-container");
+    const tasks = Array.from(taskContainer.getElementsByClassName("task"));
+    const dropIndex = tasks.indexOf(dropTarget);
+
+    // Reorder the tasks
+    if (dropIndex == tasks.length - 1) {
+      taskContainer.removeChild(draggedTask);
+      taskContainer.appendChild(draggedTask);
+    } else if (dropIndex !== -1) {
+      taskContainer.removeChild(draggedTask);
+      taskContainer.insertBefore(draggedTask, tasks[dropIndex]);
+    }
+
+    draggedTask = null;
+  }
+}
+
+taskContainer.addEventListener("dragover", dragOver);
+taskContainer.addEventListener("drop", drop);
+
+// ITEMS COUNT 
+let iteminfo = document.createElement("div");
+iteminfo.classList.add("iteminfo");
+let itemno = document.createElement("p");
+iteminfo.appendChild(itemno);
+let count = 0;
+
+// ALL BUTTON
+let all = document.createElement("button");
+all.innerHTML = "All";
+all.classList.add("itembtns");
+iteminfo.appendChild(all);
+
+// ACTIVE BUTTON
+let activebtn = document.createElement("button");
+activebtn.innerHTML = "Active";
+activebtn.classList.add("itembtns");
+iteminfo.appendChild(activebtn);
+
+// COMPLETED BUTTON
+let completed = document.createElement("button");
+completed.innerHTML = "Completed";
+completed.classList.add("itembtns");
+completed.classList.add("completed");
+iteminfo.appendChild(completed);
+
+// CLAR COMPLETED BUTTON
+let clearcmp = document.createElement("button");
+clearcmp.innerHTML = "Clear Completed";
+clearcmp.classList.add("itembtns");
+iteminfo.appendChild(clearcmp);
+
+// ADIDNG NEW TODO
+addTask.addEventListener("click", function () {
+  let task = document.createElement("div");
+  task.classList.add("task");
+  task.draggable = true;
+  task.addEventListener("dragstart", dragStart);
+
+//c CHECK BUTTON
+  let checkButton = document.createElement("button");
+  checkButton.innerHTML =
+    '<i class="fa fa-circle-thin" aria-hidden="true"></i>';
+  checkButton.classList.add("deleteTask");
+  task.appendChild(checkButton);
+
+  let li = document.createElement("li");
+  li.innerText = `${inputTask.value}`;
+  li.classList.add("draggables");
+  li.setAttribute("draggable", "true");
+  task.appendChild(li);
+
+  if (inputTask.value === "") {
+    alert("Please Enter a Task");
+  } else {
+    iteminfo.classList.add("iteminfo");
+    count++;
+    itemno.innerText = `${count} item left`;
+    taskContainer.appendChild(task);
+    remainingItems.appendChild(iteminfo);
+  }
+
+  inputTask.value = "";
+
+// when checked
+  let checked = false;
+  function toggle() {
+    checked = !checked;
+  }
+
+  function ischecked() {
+    if (checkButton.parentElement.classList.contains("checked")) {
+      checkButton.parentElement.classList.remove("checked");
+    } else {
+      checkButton.parentElement.classList.add("checked");
+    }
+  }
+
+  checkButton.addEventListener("click", function () {
+    ischecked();
+    toggle();
+    if (checked == true) {
+      count--;
+    } else {
+      count++;
+    }
+    itemno.innerText = `${count} item left`;
+  });
+
+//Active button 
+
+  activebtn.addEventListener("click", function () {
+    let taskElementsArray = document.getElementsByClassName("task");
+    Array.prototype.forEach.call(taskElementsArray, function (element) {
+      if (element.classList.contains("checked")) {
+        element.classList.add("hide");
       } else {
-        taskContainer.classList.remove('hidden');
-        taskContainer.appendChild(task);
-        circle.style.display = 'flex';
+        element.classList.remove("hide");
       }
-  
-      // updating current epmty list with input value
-      inputTask.value = '';
+    });
+  });
 
-  
-      // Toggling task status on clicking circle
-      function toggleTaskStatus() {
-        task.classList.toggle('completed');
-        if (task.classList.contains('completed')) {
-          checkButton.style.display = 'block';
-          deleteButton.style.display = 'block';
-        } else {
-          checkButton.style.display = 'none';
-          deleteButton.style.display = 'none';
-        }
-        updateItemsNo();
+ // dEleting all checked todos
+  clearcmp.addEventListener("click", function () {
+    let taskElementsArray = document.getElementsByClassName("task");
+    // each task with line-through text decoration gets removed
+    Array.prototype.forEach.call(taskElementsArray, function (element) {
+      if (element.classList.contains("checked")) {
+        element.remove();
       }
-  
-      // Updating items count
-      function updateItemsNo() {
-        const incompleteTasks = tasks.filter((task) => !task.classList.contains('completed'));
-        const count = incompleteTasks.length;
-        itemsNo.innerText = `${count} ${count === 1 ? 'item' : 'items'} left`;
-  
-        incompleteTasks.forEach((task, index) => {
-          task.dataset.taskId = index + 1;
-        });
+    });
+  });
+
+// showing completed task
+  completed.addEventListener("click", function () {
+    let taskElementsArray = document.getElementsByClassName("task");
+    Array.prototype.forEach.call(taskElementsArray, function (element) {
+      if (!element.classList.contains("checked")) {
+        element.classList.add("hide");
       }
-  
-      li.addEventListener('click', (event) => {
-        event.stopPropagation();
-      });
-  
-      // Styling check button
-      checkButton.addEventListener('click', (event) => {
-        checkButton.parentElement.style.textDecoration = 'line-through';
-        task.classList.toggle('completed');
-        event.stopPropagation();
-      });
-  
-      // Removing task by clicking delete button
-      deleteButton.addEventListener('click', (event) => {
-        let target = event.target;
-        let task = deleteButton.parentElement;
-        taskContainer.removeChild(task);
-  
-        if (taskContainer.childElementCount === 0) {
-          taskContainer.classList.add('hidden');
-        }
-  
-        event.stopPropagation();
-      });
-  
-      tasks.push(task);
     });
+  });
 
-  
-    // Filtering completed tasks
-    completedFilter.addEventListener('click', () => {
-      completedFilter.classList.add('active');
-      document.getElementById('active').classList.remove('active');
-      document.getElementById('all').classList.remove('active');
-  
-      tasks.forEach((task) => {
-        if (task.classList.contains('completed')) {
-          task.style.display = 'flex';
-        } else {
-          task.style.display = 'none';
-        }
-      });
-    });
-  
-    // Clearing completed tasks
-    clearCompletedButton.addEventListener('click', () => {
-      const completedTasks = Array.from(taskContainer.getElementsByClassName('completed'));
-  
-      completedTasks.forEach((task) => {
-        taskContainer.removeChild(task);
-      });
-  
-      tasks = tasks.filter((task) => !completedTasks.includes(task));
-  
-      if (taskContainer.childElementCount === 0) {
-        taskContainer.classList.add('hidden');
+  // All filter
+  all.addEventListener("click", function () {
+    let taskElementsArray = document.getElementsByClassName("task");
+    Array.prototype.forEach.call(taskElementsArray, function (element) {
+      if (element.classList.contains("hide")) {
+        element.classList.remove("hide");
       }
-  
-      updateItemsNo();
     });
-  
-    // Drag and drop
-    dragAndDropFooter.addEventListener('click', () => {
-      const draggableTasks = document.querySelectorAll('.task');
-  
-      draggableTasks.forEach((task) => {
-        task.draggable = true;
-        task.addEventListener('dragstart', handleDragStart);
-        task.addEventListener('dragover', handleDragOver);
-        task.addEventListener('drop', handleDrop);
-        task.addEventListener('dragend', handleDragEnd);
-      });
-    });
-  
-    function handleDragStart(event) {
-      event.target.classList.add('dragging');
-    }
-  
-    function handleDragOver(event) {
-      event.preventDefault();
-    }
-  
-    function handleDrop(event) {
-      event.preventDefault();
-      const draggedTask = document.querySelector('.dragging');
-      const dropZoneTask = event.currentTarget;
-  
-      if (draggedTask !== dropZoneTask) {
-        const draggedIndex = Array.from(taskContainer.children).indexOf(draggedTask);
-        const dropZoneIndex = Array.from(taskContainer.children).indexOf(dropZoneTask);
-  
-        if (draggedIndex < dropZoneIndex) {
-          taskContainer.insertBefore(draggedTask, dropZoneTask.nextSibling);
-        } else {
-          taskContainer.insertBefore(draggedTask, dropZoneTask);
-        }
-  
-        tasks.splice(dropZoneIndex, 0, tasks.splice(draggedIndex, 1)[0]);
-      }
-    }
-  
-    function handleDragEnd(event) {
-      event.target.classList.remove('dragging');
-      updateItemsNo();
-    }
-  
-    
-    // All filter
-    const allFilter = document.getElementById('all');
-    allFilter.addEventListener('click', () => {
-      completedFilter.classList.remove('active');
-      activeFilter.classList.remove('active');
-      allFilter.classList.add('active');
-  
-      tasks.forEach((task) => {
-        task.style.display = 'flex';
-      });
-    });
+  });
 
-
-    //Changing Drak mode to light mode
-    sunMoonToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (sunMoonToggle.classList.contains('sun')) {
-          sunMoonToggle.src = 'moon.svg';
-          sunMoonToggle.alt = 'Moon';
-          sunMoonToggle.classList.remove('sun');
-        } else {
-          sunMoonToggle.src = 'sun.svg';
-          sunMoonToggle.alt = 'Sun';
-          sunMoonToggle.classList.add('sun');
-        }
-    });
-
- 
-    //Active
-    document.getElementById('active').addEventListener('click', () => {
-        completedFilter.classList.remove('active');
-        document.getElementById('active').classList.add('active');
-        document.getElementById('all').classList.remove('active');
-        tasks.forEach((task) => {
-          if (task.classList.contains('completed')) {
-            task.style.display = 'none';
-          } else {
-            task.style.display = 'flex';
-          }
-        });
-    });
-  
 });
-  
+
+//Changing Darkk mode to light mode
+let isLightMode = false;
+const lightModeButton = document.querySelector('.lightmode');
+const sunIcon = lightModeButton.querySelector('.fa-sun-o');
+const moonIcon = lightModeButton.querySelector('.fa-moon-o');
+
+lightModeButton.addEventListener("click", function () {
+  if (!isLightMode) {
+    document.body.style.backgroundImage =
+      "url('bkg\ img.jpg'), url('white2.jpg')";
+
+    isLightMode = true;
+    addtaskcontainer.style.backgroundColor = "white";
+    inputTask.style.backgroundColor = "white";
+    inputTask.style.color = "black";
+    sunIcon.classList.add('fa-moon-o');
+    sunIcon.classList.remove('fa-sun-o');
+    moonIcon.style.color = "black";
+  } else {
+    document.body.style.backgroundImage =
+      "url('bkg\ img.jpg'), url('black.jpg')";
+
+    isLightMode = false;
+    addtaskcontainer.style.backgroundColor = "rgb(37, 35, 35)";
+    inputTask.style.backgroundColor = "rgb(37, 35, 35)";
+    inputTask.style.color = "white";
+    sunIcon.classList.add('fa-sun-o');
+    sunIcon.classList.remove('fa-moon-o');
+    moonIcon.style.color = "white";
+  }
+});
+
+
   
 
 
